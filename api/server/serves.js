@@ -23,8 +23,8 @@ app.use(express.json({ limit: '10kb' }));
 // Rate limit: 100 requisições por 15 minutos por IP
 app.use(rateLimit({ windowMs: 15 * 60 * 1000, max: 100 }));
 
-// CORS restrito (ajuste para o domínio do seu frontend em produção)
-app.use(cors({ origin: process.env.CORS_ORIGIN || "http://localhost:3000" }));
+// CORS aberto para todos os frontends temporariamente
+app.use(cors());
 
 // Tratamento global de erros
 app.use((err, req, res, next) => {
@@ -86,7 +86,7 @@ async function startServer() {
 app.use("/api/v1", apiRedirect);
 
 // Ping automático para evitar que o Render durma
-const PING_URL = process.env.PING_URL || "";
+const PING_URL = process.env.PING_URL || "https://api-internan8n.onrender.com";
 setInterval(() => {
     fetch(PING_URL)
         .then(() => console.log("Ping enviado para manter o Render acordado"))
