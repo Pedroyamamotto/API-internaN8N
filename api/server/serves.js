@@ -23,8 +23,11 @@ app.use(express.json({ limit: '10kb' }));
 // Rate limit: 100 requisições por 15 minutos por IP
 app.use(rateLimit({ windowMs: 15 * 60 * 1000, max: 100 }));
 
-// CORS aberto para todos os frontends temporariamente
-app.use(cors());
+// CORS restrito ao frontend do N8N
+app.use(cors({
+  origin: "https://n8n.fechadurasmart.com.br",
+  credentials: true
+}));
 
 // Tratamento global de erros
 app.use((err, req, res, next) => {
