@@ -10,6 +10,10 @@ import rateLimit from "express-rate-limit";
 
 
 const app = express();
+
+// Habilita confiança em proxy (necessário para Render, n8n Cloud, etc)
+app.set("trust proxy", 1);
+
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
 
 app.use(morgan("dev"));
